@@ -1,0 +1,2406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Felipe Céspedes | Data Engineer & GenAI Specialist</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg-primary:#0a0a0f;
+  --bg-secondary:#13131a;
+  --accent-1:#3b82f6;
+  --accent-2:#06b6d4;
+  --accent-3:#0ea5e9;
+  --text-primary:#ffffff;
+  --text-secondary:#a1a1aa;
+  --glass-bg:rgba(255,255,255,0.05);
+  --glass-border:rgba(255,255,255,0.1);
+}
+
+/* Base */
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* Animated Background */
+.bg-animation{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:0;overflow:hidden;
+}
+.gradient-sphere{
+  position:absolute;border-radius:50%;
+  filter:blur(120px);opacity:.3;animation:float 20s infinite ease-in-out;
+}
+.sphere-1{width:600px;height:600px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));top:-200px;left:-200px;animation-delay:0s}
+.sphere-2{width:500px;height:500px;background:linear-gradient(135deg,var(--accent-2),var(--accent-3));bottom:-150px;right:-150px;animation-delay:5s}
+.sphere-3{width:400px;height:400px;background:linear-gradient(135deg,var(--accent-3),var(--accent-1));top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:10s}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(50px,-50px) scale(1.1)}
+  66%{transform:translate(-30px,30px) scale(.9)}
+}
+
+/* Navigation */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:1.5rem 5%;
+  background:var(--glass-bg);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--glass-border);
+  opacity:0;transform:translateY(-100%);transition:all .3s ease;
+}
+nav.visible{opacity:1;transform:translateY(0)}
+nav .nav-container{
+  max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center
+}
+.nav-logo{
+  font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;
+  background:linear-gradient(135deg,var(--accent-1),var(--accent-3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{
+  color:var(--text-secondary);text-decoration:none;font-weight:500;transition:color .3s ease;position:relative
+}
+.nav-links a:hover{color:var(--text-primary)}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;
+  background:linear-gradient(90deg,var(--accent-1),var(--accent-3));transition:width .3s ease
+}
+.nav-links a:hover::after{width:100%}
+
+/* Hero */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:2rem 5%;z-index:1;overflow:hidden;
+}
+.hero-content{
+  max-width:1400px;width:100%;display:grid;grid-template-columns:3fr 2fr;gap:4rem;align-items:center
+}
+.hero-text h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(3rem,8vw,5.5rem);font-weight:700;line-height:1.1;margin-bottom:1.5rem;
+  background:linear-gradient(135deg,#fff 0%,var(--accent-1) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.hero-text .subtitle{font-size:clamp(1.2rem,3vw,1.5rem);color:var(--text-secondary);margin-bottom:2rem;font-weight:300}
+.hero-text .highlight{display:inline-block;padding:.5rem 1rem;background:var(--glass-bg);backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:50px;font-size:.9rem;margin-bottom:2rem}
+
+/* CTA Buttons */
+.cta-buttons{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{padding:1rem 2rem;border-radius:12px;font-weight:600;text-decoration:none;transition:all .3s ease;cursor:pointer;border:none;font-size:1rem}
+.btn-primary{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:#fff;box-shadow:0 10px 30px rgba(99,102,241,.3)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(99,102,241,.5)}
+.btn-secondary{background:var(--glass-bg);backdrop-filter:blur(10px);border:1px solid var(--glass-border);color:#fff}
+.btn-secondary:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+
+/* Hero Visual Cards (flotantes) */
+.hero-visual{position:relative;height:500px}
+.glass-card{
+  position:absolute;background:var(--glass-bg);backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);border-radius:20px;padding:2rem;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);animation:floatCard 6s ease-in-out infinite
+}
+.glass-card-1{top:0;left:0;width:250px;animation-delay:0s}
+.glass-card-2{top:100px;right:0;width:280px;animation-delay:2s}
+.glass-card-3{bottom:50px;left:50px;width:200px;animation-delay:4s}
+@keyframes floatCard{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(2deg)}}
+.glass-card h3{
+  font-size:1.2rem;margin-bottom:.5rem;
+  background:linear-gradient(135deg,var(--accent-1),var(--accent-3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.glass-card p{color:var(--text-secondary);font-size:.9rem}
+.glass-card .stat{font-size:2rem;font-weight:700;color:#fff;margin-top:1rem}
+
+/* Sections */
+section{position:relative;padding:8rem 5%;z-index:1}
+.section-header{max-width:1400px;margin:0 auto 4rem;text-align:center}
+.section-tag{display:inline-block;padding:.5rem 1rem;background:var(--glass-bg);backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:50px;font-size:.85rem;color:var(--accent-1);margin-bottom:1rem;font-weight:600}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;margin-bottom:1rem}
+.section-subtitle{font-size:1.2rem;color:var(--text-secondary);max-width:700px;margin:0 auto}
+
+/* Experience */
+.experience-grid{max-width:1400px;margin:0 auto;display:grid;gap:2rem}
+.experience-card{
+  background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:24px;
+  padding:2.5rem;transition:all .4s ease;position:relative;overflow:hidden
+}
+.experience-card::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:4px;
+  background:linear-gradient(90deg,var(--accent-1),var(--accent-2),var(--accent-3));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s ease
+}
+.experience-card:hover::before{transform:scaleX(1)}
+.experience-card:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.2);box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.experience-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+.experience-company{font-size:1.5rem;font-weight:700;color:#fff}
+.experience-role{font-size:1.1rem;color:var(--accent-1);font-weight:600;margin-top:.5rem}
+.experience-date{padding:.5rem 1rem;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.3);border-radius:8px;color:var(--accent-1);font-size:.9rem;font-weight:600;white-space:nowrap}
+.experience-description{color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.8}
+.experience-description ul{padding-left:1.5rem}
+.experience-description li{margin-bottom:.8rem}
+.tech-stack{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--glass-border)}
+.tech-tag{padding:.4rem 1rem;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.3);border-radius:8px;color:var(--accent-1);font-size:.85rem;font-weight:500;transition:all .3s ease}
+.tech-tag:hover{background:rgba(99,102,241,.2);transform:translateY(-2px)}
+
+/* Skills Grid */
+.skills-grid{
+  max-width:1400px;margin:0 auto;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem
+}
+.skill-card{
+  background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);
+  border-radius:24px;padding:0.6rem 1rem 0.8rem;transition:all .4s ease;text-align:center
+}
+.skill-card:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.2)}
+.skill-icon{font-size:2.5rem;margin-bottom:1rem}
+.skill-card h3{font-size:1.3rem;margin-bottom:1rem;color:#fff}
+.skill-item{padding:.8rem 0;color:var(--text-secondary);border-bottom:1px solid var(--glass-border)}
+.skill-item:last-child{border-bottom:none}
+
+/* Logos Educación/Certificaciones */
+.edu-logo,.cert-logo{width:100px;height:100px;object-fit:contain;border-radius:8px;transition:transform .3s ease}
+.edu-logo:hover,.cert-logo:hover{transform:scale(1.05)}
+
+/* Certifications Cards Grid */
+.certs-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.cert-card{
+  background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);
+  border-radius:20px;padding:2rem;text-align:center;transition:all .4s ease
+}
+.cert-card:hover{transform:scale(1.05);border-color:rgba(255,255,255,.2)}
+.cert-icon{
+  width:80px;height:80px;margin:0 auto 1rem;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:#fff
+}
+.cert-title{font-weight:600;margin-bottom:.5rem;color:#fff}
+.cert-org{color:var(--accent-1);font-size:.9rem}
+
+/* Contact */
+.contact-grid{max-width:900px;margin:2rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem}
+.contact-card{
+  background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);
+  border-radius:20px;padding:2rem;text-align:center;transition:all .4s ease
+}
+.contact-card:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.2)}
+.contact-icon{font-size:2rem;margin-bottom:1rem}
+.contact-card h3{font-size:1.1rem;margin-bottom:.5rem;color:#fff}
+.contact-card a{color:var(--accent-1);text-decoration:none;font-weight:600;transition:color .3s ease;word-break:break-all;display:block}
+.contact-card a:hover{color:var(--accent-2)}
+
+/* Download CV */
+.download-section{
+  max-width:900px;margin:3rem auto;padding:3rem;background:var(--glass-bg);
+  backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:24px;text-align:center
+}
+.download-section h3{font-size:1.8rem;margin-bottom:1rem;color:#fff}
+.download-section p{color:var(--text-secondary);margin-bottom:2rem}
+.download-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.download-btn{
+  display:flex;align-items:center;gap:.5rem;padding:1rem 2rem;background:var(--glass-bg);backdrop-filter:blur(10px);
+  border:2px solid var(--glass-border);border-radius:12px;color:#fff;text-decoration:none;font-weight:600;transition:all .3s ease;cursor:pointer
+}
+.download-btn:hover{
+  background:rgba(255,255,255,.1);border-color:var(--accent-1);
+  transform:translateY(-3px);box-shadow:0 10px 30px rgba(99,102,241,.3)
+}
+.download-btn svg{width:24px;height:24px}
+
+/* Footer */
+footer{position:relative;padding:4rem 5%;background:var(--bg-secondary);border-top:1px solid var(--glass-border);z-index:1}
+.footer-content{max-width:1400px;margin:0 auto;text-align:center}
+.footer-content h2{font-family:'Space Grotesk',sans-serif;font-size:2rem;margin-bottom:.5rem}
+.footer-content p{color:var(--text-secondary);margin-bottom:.5rem}
+
+/* Scroll Reveal */
+.reveal{opacity:0;transform:translateY(50px);transition:all .8s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* Fix overlap nav/anclas + utilidades */
+section{scroll-margin-top:26px;position:relative;z-index:2}
+body{padding-top:26px}
+.hero-text p{white-space:pre-line}
+
+/* === Specialties (Data / GenAI / Agile) con rebote === */
+@keyframes floatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.specialties-group{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-top:2rem
+}
+.specialties-group .glass-card{
+  position:static;animation:floatBounce 2.6s cubic-bezier(0.45,0.05,0.55,0.95) infinite;
+  background-color:rgba(255,255,255,0.05);border-radius:12px;padding:1.5rem;text-align:center;
+  transition:transform .2s ease, background .2s ease
+}
+.specialties-group .glass-card:hover{background-color:rgba(255,255,255,0.1);transform:translateY(-6px) scale(1.03)}
+.specialties-group .glass-card:nth-child(2){animation-delay:.8s}
+.specialties-group .glass-card:nth-child(3){animation-delay:1.6s}
+.specialties-group h3{font-size:1.1rem;margin-bottom:.7rem;color:var(--text-primary)}
+.specialties-group .specialties{font-size:.85rem;color:var(--text-secondary);margin-bottom:.4rem;line-height:1.4}
+.specialties-group .keywords{font-size:.75rem;color:var(--text-tertiary);opacity:.9;line-height:1.4}
+
+/* Skills: imagen compacta y centrada (120×120) */
+.skill-card img{
+  width:220px;object-fit:contain;margin:0.25rem 0 0.35rem;
+  transition:transform .25s ease, filter .25s ease
+}
+.skill-card:hover img{transform:scale(1.06)}
+
+/* Responsive */
+@media (max-width:1024px){
+  .hero-content{grid-template-columns:1fr}
+  .hero-visual{display:block;height:auto}
+  .nav-links{gap:1.5rem}
+}
+@media (max-width:768px){
+  section{padding:5rem 5%}
+  .nav-links{display:none}
+  .hero-text h1{font-size:2.5rem}
+  .cta-buttons{flex-direction:column}
+  .btn{width:100%;text-align:center}
+}
+/* === Idioma Switcher (Restaurar efecto) === */
+.lang-switcher {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.lang-btn {
+  padding: 0.6rem 1.2rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.lang-btn:hover {
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
+}
+
+.lang-btn.active {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff;
+  border: none;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.lang-btn.active:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+}
+
+/* Projects Section Styles */
+.project-showcase {
+    padding: 0 2rem;
+}
+
+.project-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.project-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 50px;
+    color: var(--accent-1);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.project-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.project-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.project-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.project-links .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-visual {
+    position: relative;
+}
+
+.browser-mockup {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--glass-border);
+    transition: transform 0.3s ease;
+}
+
+.browser-mockup:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.browser-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.browser-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.browser-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    opacity: 0.5;
+}
+
+.browser-dots span:nth-child(1) {
+    background: #ff5f56;
+}
+
+.browser-dots span:nth-child(2) {
+    background: #ffbd2e;
+}
+
+.browser-dots span:nth-child(3) {
+    background: #27c93f;
+}
+
+.browser-url {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.browser-content {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+}
+
+/* Technical Implementation */
+.project-technical {
+    margin-bottom: 4rem;
+}
+
+.technical-title, .stack-title, .features-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.knowledge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.knowledge-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.knowledge-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+}
+
+.knowledge-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.knowledge-card h5 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-1);
+}
+
+.knowledge-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Tech Stack */
+.project-stack {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Features */
+.project-features {
+    margin-bottom: 2rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-item h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.feature-item p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .project-hero {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .knowledge-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* System Flow */
+.system-flow {
+    margin-bottom: 5rem;
+}
+
+.flow-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.flow-step {
+    display: grid;
+    grid-template-columns: 60px 1fr 40px;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+
+.step-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.step-content:hover {
+    transform: translateX(10px);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 20px 50px rgba(59, 130, 246, 0.1);
+}
+
+.step-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.step-info h5 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-1);
+    margin-bottom: 1rem;
+}
+
+.step-info p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.step-features {
+    list-style: none;
+    margin: 1.5rem 0;
+}
+
+.step-features li {
+    color: var(--text-secondary);
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.step-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.mini-tag {
+    padding: 0.3rem 0.8rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 6px;
+    color: var(--accent-1);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.tech-highlight {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(59, 130, 246, 0.05);
+    border-left: 3px solid var(--accent-1);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.tech-highlight strong {
+    color: var(--accent-1);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.step-arrow {
+    font-size: 2rem;
+    color: var(--accent-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+}
+
+/* Advanced Knowledge */
+.advanced-knowledge {
+    margin-bottom: 5rem;
+}
+
+.knowledge-section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.knowledge-cards-advanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.advanced-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.4s ease;
+}
+
+.advanced-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 25px 60px rgba(59, 130, 246, 0.15);
+}
+
+.advanced-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.advanced-card h5 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.advanced-card p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.sub-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.sub-skills span {
+    padding: 0.4rem 0.9rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 6px;
+    color: var(--accent-1);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Complete Stack */
+.complete-stack {
+    margin-bottom: 5rem;
+}
+
+.stack-section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stack-categories {
+    display: grid;
+    gap: 2rem;
+}
+
+.stack-category {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+.stack-category h5 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-1);
+    margin-bottom: 1rem;
+}
+
+.stack-tags-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+}
+
+/* Impact Section */
+.impact-section {
+    margin-bottom: 5rem;
+}
+
+.impact-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.impact-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.impact-card:hover {
+    transform: scale(1.05);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 20px 50px rgba(59, 130, 246, 0.15);
+}
+
+.impact-number {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+
+.impact-label {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Final CTA */
+.project-cta-final {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+}
+
+.project-cta-final h4 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.project-cta-final .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .flow-step {
+        grid-template-columns: 50px 1fr;
+        gap: 1.5rem;
+    }
+    
+    .step-arrow {
+        display: none;
+    }
+    
+    .knowledge-cards-advanced {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-logo {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo-text h3 {
+        font-size: 1.5rem;
+    }
+    
+    .flow-step {
+        grid-template-columns: 1fr;
+    }
+    
+    .step-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        margin: 0 auto;
+    }
+    
+    .step-content {
+        padding: 1.5rem;
+    }
+    
+    .step-info h5 {
+        font-size: 1.4rem;
+    }
+    
+    .advanced-card {
+        padding: 1.5rem;
+    }
+    
+    .impact-number {
+        font-size: 3rem;
+    }
+    
+    .flow-title,
+    .knowledge-section-title,
+    .stack-section-title,
+    .impact-title {
+        font-size: 2rem;
+    }
+}
+
+/* Project Visual Container */
+.project-visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Carousel Styles */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carousel-slides {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Carousel Controls - FUERA de la imagen */
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-btn {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--glass-border);
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn:hover {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    border-color: var(--accent-1);
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.carousel-btn:active {
+    transform: scale(0.95);
+}
+
+.carousel-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.carousel-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-indicator:hover {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: var(--accent-1);
+    transform: scale(1.3);
+}
+
+.carousel-indicator.active {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    border-color: var(--accent-1);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+    width: 40px;
+    border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .carousel-controls {
+        gap: 1.5rem;
+    }
+    
+    .carousel-btn {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-visual {
+        gap: 1.5rem;
+    }
+    
+    .carousel-controls {
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .carousel-btn {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .carousel-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .carousel-indicators {
+        gap: 8px;
+    }
+    
+    .carousel-indicator {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .carousel-indicator.active {
+        width: 30px;
+    }
+}
+
+/* Animación adicional para los botones */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(59, 130, 246, 0.3);
+    }
+}
+
+.carousel-btn:hover {
+    animation: pulse 2s infinite;
+}
+    </style>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/CSV/images/favicon.png">
+
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="gradient-sphere sphere-1"></div>
+        <div class="gradient-sphere sphere-2"></div>
+        <div class="gradient-sphere sphere-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="nav">
+        <div class="nav-container">
+            <div class="nav-logo">FC</div>
+            <div class="nav-links">
+                <a href="#home" data-es="Inicio" data-en="Home">Inicio</a>
+                <a href="#experience" data-es="Experiencia" data-en="Experience">Experiencia</a>
+                <a href="#skills" data-es="Habilidades" data-en="Skills">Habilidades</a>
+                <a href="#projects" data-es="Proyectos" data-en="Projects">Proyectos</a>
+                <a href="#certifications" data-es="Certificaciones" data-en="Certifications">Certificaciones</a>
+                <a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="changeLanguage('es')">ES</button>
+                <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="highlight" data-es="📍 Santiago, Chile · Disponible para proyectos" data-en="📍 Santiago, Chile · Available for projects">📍 Santiago, Chile · Disponible para proyectos</div>
+                <h1>Felipe A. Céspedes Pérez</h1>
+                <!-- <p class="subtitle">Data Engineer · Prompt Engineering · GenAI Specialist</p> -->
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;" 
+                data-es="Ingeniero Informático con Diplomado en Dirección y Administración de Proyectos y certificación Scrum Master Professional. Dominio de inglés intermedio con amplia experiencia en roles IT, con dedicación al desarrollo de soluciones de extracción, transformación y carga de datos (ETL), orientadas a la mejora continua, optimización y automatización de procesos, administración de repositorios, validación y análisis de flujos de datos para la continuidad operativa, con fuerte enfoque en metodologías ágiles y liderazgo técnico.
+                Conocimiento aplicado en marcos regulatorios de protección de datos y Transformación Digital del Estado, integrando principios de privacy-by-design, interoperabilidad, gobierno y trazabilidad de datos en el diseño de arquitecturas y servicios.
+                Experiencia en implementación de anonimización y pseudonimización de información, evaluaciones de riesgo en datasets, prompts y modelos GenAI, asegurando cumplimiento normativo, calidad y escalabilidad en soluciones de analítica avanzada, ingeniería de datos y servicios de inteligencia artificial generativa." 
+                data-en="Computer Engineer with a Diploma in Project Management and Administration and a Scrum Master Professional certification. Intermediate English proficiency and extensive experience in IT roles, dedicated to the development of data extraction, transformation, and loading (ETL) solutions focused on continuous improvement, process optimization, and automation. Skilled in repository management, data flow validation, and analysis to ensure operational continuity, with a strong emphasis on agile methodologies and technical leadership.
+                Applied knowledge of data protection regulations and Digital Transformation frameworks within the Chilean public sector, integrating principles of privacy-by-design, interoperability, data governance, and traceability into the design of data architectures and enterprise services.
+                Experienced in implementing data anonymization and pseudonymization, conducting risk assessments for datasets, prompts, and GenAI models, ensuring regulatory compliance, data quality, and scalability across advanced analytics, data engineering, and generative AI solutions.">
+                Ingeniero Informático con Diplomado en Dirección y Administración de Proyectos y certificación Scrum Master Professional. Dominio de inglés intermedio con amplia experiencia en roles IT, con dedicación al desarrollo de soluciones de extracción, transformación y carga de datos (ETL), orientadas a la mejora continua, optimización y automatización de procesos, administración de repositorios, validación y análisis de flujos de datos para la continuidad operativa, con fuerte enfoque en metodologías ágiles y liderazgo técnico.
+                Conocimiento aplicado en marcos regulatorios de protección de datos y Transformación Digital del Estado, integrando principios de privacy-by-design, interoperabilidad, gobierno y trazabilidad de datos en el diseño de arquitecturas y servicios.
+                Experiencia en implementación de anonimización y pseudonimización de información, evaluaciones de riesgo en datasets, prompts y modelos GenAI, asegurando cumplimiento normativo, calidad y escalabilidad en soluciones de analítica avanzada, ingeniería de datos y servicios de inteligencia artificial generativa.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#experience" class="btn btn-primary" data-es="Ver Experiencia" data-en="View Experience">Ver Experiencia</a>
+                    <a href="#contact" class="btn btn-secondary" data-es="Contactar" data-en="Contact">Contactar</a>
+                </div>
+            </div>
+            <div class="hero-visual specialties-group">
+                <!-- ⚙️ Ingeniería de Datos -->
+                <div class="glass-card">
+                  <h3 data-es="⚙️ Ingeniería de Datos" data-en="⚙️ Data Engineering">⚙️ Ingeniería de Datos</h3>
+                  <p class="specialties"
+                     data-es="Ingeniería de Datos · Automatización · Escalabilidad · Calidad de Datos · Excelencia ETL"
+                     data-en="Data Engineering · Automation · Scalability · Data Quality · ETL Excellence">
+                     Ingeniería de Datos · Automatización · Escalabilidad · Calidad de Datos · Excelencia ETL
+                  </p>
+                  <p class="keywords"
+                     data-es="Optimización ETL · Gobierno de Datos · Analítica Cloud · Pipelines Escalables · Automatización Inteligente"
+                     data-en="Data Integration · ETL Optimization · Data Governance · Cloud Analytics · Scalable Pipelines · Smart Automation">
+                     Optimización ETL · Gobierno de Datos · Analítica Cloud · Pipelines Escalables · Automatización Inteligente
+                  </p>
+                </div>
+              
+                <!-- 🤖 Generative AI -->
+                <div class="glass-card">
+                  <h3 data-es="🤖 Inteligencia Artificial Generativa" data-en="🤖 Generative AI / GenAI">🤖 Inteligencia Artificial Generativa</h3>
+                  <p class="specialties"
+                     data-es="Innovación en IA · Ingeniería de Prompts · Automatización Inteligente · Embeddings Semánticos · Sistemas Multi-Agente"
+                     data-en="AI Innovation · Prompt Engineering · Intelligent Automation · Semantic Embeddings · Multi-Agent Systems">
+                     Ingeniería de Prompts · Automatización Inteligente · Embeddings Semánticos · Sistemas Multi-Agente
+                  </p>
+                  <p class="keywords"
+                     data-es="Innovación GenAI · Estrategia de Prompts · IA Aplicada · Inteligencia Semántica · Diseño Multi-Agente · IA Responsable"
+                     data-en="GenAI Innovation · Prompt Strategy · AI-Driven Insights · Semantic Intelligence · Multi-Agent Design · Responsible AI">
+                     Innovación GenAI · Estrategia de Prompts · IA Aplicada · Inteligencia Semántica · Diseño Multi-Agente · IA Responsable
+                  </p>
+                </div>
+              
+                <!-- 🚀 Metodologías Ágiles -->
+                <div class="glass-card">
+                  <h3 data-es="🚀 Metodologías Ágiles / Liderazgo Técnico" data-en="🚀 Agile Methodologies / Technical Leadership">
+                    🚀 Metodologías Ágiles / Liderazgo Técnico
+                  </h3>
+                  <p class="specialties"
+                     data-es="Mentalidad Ágil · Mejora Continua · Liderazgo Técnico · Equipos de Alto Rendimiento"
+                     data-en="Agile Mindset · Continuous Improvement · Technical Leadership · High-Performance Teams">
+                     Mentalidad Ágil · Mejora Continua · Liderazgo Técnico · Equipos de Alto Rendimiento
+                  </p>
+                  <p class="keywords"
+                     data-es="Liderazgo Ágil · Entrega Continua · Excelencia Scrum · Ejecución Lean · Empoderamiento de Equipos · Cultura de Innovación"
+                     data-en="Agile Leadership · Continuous Delivery · Scrum Excellence · Lean Execution · Team Empowerment · Innovation Culture">
+                     Liderazgo Ágil · Entrega Continua · Excelencia Scrum · Ejecución Lean · Empoderamiento de Equipos · Cultura de Innovación
+                  </p>
+                </div>
+            </div>           
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="section-header reveal">
+            <!-- <span class="section-tag" data-es="💼 TRAYECTORIA PROFESIONAL" data-en="💼 PROFESSIONAL CAREER">💼 TRAYECTORIA PROFESIONAL</span> -->
+            <h2 class="section-title" data-es="Experiencia" data-en="Experience">Experiencia</h2>
+            <p class="section-subtitle" data-es="Liderando proyectos de datos e IA en empresas de clase mundial" data-en="Leading data and AI projects in world-class companies">Liderando proyectos de datos e IA en empresas de clase mundial</p>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Accenture</div>
+                        <div class="experience-role" data-es="Prompt Engineering, BHP" data-en="Prompt Engineering, BHP">Prompt Engineering, BHP</div>
+                    </div>
+                    <div class="experience-date" data-es="Nov 2024" data-en="Nov 2024">Nov 2024</div>
+                </div>
+                <div class="experience-description">
+                    <p data-es="Diseño y optimización de prompts para modelos de lenguaje, desarrollando herramientas avanzadas basadas en lógicas de agentes, múltiples agentes colaborativos y análisis de similitudes mediante embeddings. Experiencia en la construcción de flujos inteligentes y sistemas que integran IA para resolver tareas complejas de manera eficiente." data-en="Design and optimization of prompts for language models, developing advanced tools based on agent logic, multiple collaborative agents, and similarity analysis through embeddings. Experience in building intelligent flows and systems that integrate AI to efficiently solve complex tasks.">
+                        Diseño y optimización de prompts para modelos de lenguaje, desarrollando herramientas avanzadas basadas en lógicas de agentes, múltiples agentes colaborativos y análisis de similitudes mediante embeddings. Experiencia en la construcción de flujos inteligentes y sistemas que integran IA para resolver tareas complejas de manera eficiente.
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">GitLab</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">LangChain</span>
+                    <span class="tech-tag">LangGraph</span>
+                    <span class="tech-tag">LangSmith</span>
+                    <!-- <span class="tech-tag">Tavily</span> -->
+                    <span class="tech-tag">OpenAI</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Accenture</div>
+                        <div class="experience-role" data-es="Gen AI" data-en="Gen AI">Gen AI</div>
+                    </div>
+                    <div class="experience-date" data-es="Ago 2024 - Actualidad" data-en="Aug 2024 - Present">Ago 2024 - Actualidad</div>
+                </div>
+                <div class="experience-description">
+                    <ul>
+                        <li data-es="Participación en la creación de demos funcionales y Proyectos de Prueba (Proof of Concept, POC) enfocados en resolver casos de uso reales de clientes. Estas iniciativas se diseñaron para abordar problemas específicos, proponer soluciones innovadoras y presentar resultados tangibles que permitan a los clientes visualizar el impacto potencial en sus operaciones." data-en="Participation in creating functional demos and Proof of Concept (POC) projects focused on solving real client use cases. These initiatives were designed to address specific problems, propose innovative solutions, and present tangible results that allow clients to visualize the potential impact on their operations.">
+                            Participación en la creación de demos funcionales y Proyectos de Prueba (Proof of Concept, POC) enfocados en resolver casos de uso reales de clientes. Estas iniciativas se diseñaron para abordar problemas específicos, proponer soluciones innovadoras y presentar resultados tangibles que permitan a los clientes visualizar el impacto potencial en sus operaciones.
+                        </li>
+                        <li data-es="Diseño e impartición de capacitaciones especializadas en GenAI, enfocadas en los fundamentos teóricos y aplicaciones prácticas de conceptos básicos. Estas sesiones están orientadas a profesionales que desean comprender y aplicar conceptos clave relacionados con inteligencia artificial generativa, incluyendo vectores, embeddings, distancias métricas, división de datos (splits o chunks), prompts, y técnicas de indexación." data-en="Design and delivery of specialized GenAI training, focused on theoretical foundations and practical applications of basic concepts. These sessions are aimed at professionals who want to understand and apply key concepts related to generative artificial intelligence, including vectors, embeddings, metric distances, data splitting (splits or chunks), prompts, and indexing techniques.">
+                            Diseño e impartición de capacitaciones especializadas en GenAI, enfocadas en los fundamentos teóricos y aplicaciones prácticas de conceptos básicos. Estas sesiones están orientadas a profesionales que desean comprender y aplicar conceptos clave relacionados con inteligencia artificial generativa, incluyendo vectores, embeddings, distancias métricas, división de datos (splits o chunks), prompts, y técnicas de indexación.
+                        </li>
+                        <li data-es="Participación en Hackathons Locales de Gen AI, evento diseñado para promover la innovación y el desarrollo de soluciones prácticas en inteligencia artificial generativa. Durante esta experiencia, trabajando en el desarrollo de casos de uso específicos enfocados en resolver desafíos reales de diversas industrias." data-en="Participation in Local Gen AI Hackathons, events designed to promote innovation and development of practical solutions in generative artificial intelligence. During this experience, working on developing specific use cases focused on solving real challenges from various industries.">
+                            Participación en Hackathons Locales de Gen AI, evento diseñado para promover la innovación y el desarrollo de soluciones prácticas en inteligencia artificial generativa. Durante esta experiencia, trabajando en el desarrollo de casos de uso específicos enfocados en resolver desafíos reales de diversas industrias.
+                        </li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-style: italic;" data-es="Habilidades demostradas: Innovación, pensamiento estratégico, trabajo en equipo, y conocimientos avanzados en inteligencia artificial generativa." data-en="Demonstrated skills: Innovation, strategic thinking, teamwork, and advanced knowledge in generative artificial intelligence.">
+                        Habilidades demostradas: Innovación, pensamiento estratégico, trabajo en equipo, y conocimientos avanzados en inteligencia artificial generativa.
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">GitLab</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">LangChain</span>
+                    <span class="tech-tag">LangGraph</span>
+                    <span class="tech-tag">LangSmith</span>
+                    <!-- <span class="tech-tag">Tavily</span> -->
+                    <span class="tech-tag">OpenAI</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Accenture - BHP</div>
+                        <div class="experience-role" data-es="Master Data Management (MDM)" data-en="Master Data Management (MDM)">Master Data Management (MDM)</div>
+                    </div>
+                    <div class="experience-date" data-es="Ene 2024 - Actualidad" data-en="Jan 2024 - Present">Ene 2024 - Actualidad</div>
+                </div>
+                <div class="experience-description">
+                    <ul>
+                        <li data-es="Ingeniería inversa de sistemas heredados, análisis exhaustivo de modelo de datos y sus fuentes, identificación de procesos de sistema, exploración de herramientas y sus componentes." data-en="Reverse engineering of legacy systems, comprehensive analysis of data models and their sources, identification of system processes, exploration of tools and their components.">
+                            Ingeniería inversa de sistemas heredados, análisis exhaustivo de modelo de datos y sus fuentes, identificación de procesos de sistema, exploración de herramientas y sus componentes.
+                        </li>
+                        <li data-es="Optimización de procesos existentes, identificación de inconsistencias de datos, elaboración de plan de corrección." data-en="Optimization of existing processes, identification of data inconsistencies, development of correction plans.">
+                            Optimización de procesos existentes, identificación de inconsistencias de datos, elaboración de plan de corrección.
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">GitLab</span>
+                    <span class="tech-tag">Informatica Developer</span>
+                    <span class="tech-tag">MDM Hub</span>
+                    <span class="tech-tag">SQL Server</span>
+                    <span class="tech-tag">Snowflake</span>
+                    <!-- <span class="tech-tag">DBT</span> -->
+                    <span class="tech-tag">StreamSets</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Accenture - Enel Perú</div>
+                        <div class="experience-role" data-es="Data Engineer Specialist" data-en="Data Engineer Specialist">Data Engineer Specialist</div>
+                    </div>
+                    <div class="experience-date" data-es="Sep 2023 - Dic 2023" data-en="Sep 2023 - Dec 2023">Sep 2023 - Dic 2023</div>
+                </div>
+                <div class="experience-description">
+                    <p data-es="Análisis de reclamos, integración y consolidación de datos, optimización de consultas, modelamiento de datos, preparación de insumos reportería, creación de dashboard, mejora continua." data-en="Claims analysis, data integration and consolidation, query optimization, data modeling, report input preparation, dashboard creation, continuous improvement.">
+                        Análisis de reclamos, integración y consolidación de datos, optimización de consultas, modelamiento de datos, preparación de insumos reportería, creación de dashboard, mejora continua.
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Redshift</span>
+                    <span class="tech-tag">Power BI</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Accenture - AMSA</div>
+                        <div class="experience-role" data-es="Data Engineer Specialist" data-en="Data Engineer Specialist">Data Engineer Specialist</div>
+                    </div>
+                    <div class="experience-date" data-es="Ago 2022 - Ago 2023" data-en="Aug 2022 - Aug 2023">Ago 2022 - Ago 2023</div>
+                </div>
+                <div class="experience-description">
+                    <p data-es="Análisis de procesos, modelamiento de datos, desarrollo de pipelines, optimización de procesos, elaboración de dashboard, en distintos proyectos bajo metodologías ágiles." data-en="Process analysis, data modeling, pipeline development, process optimization, dashboard creation, across various projects under agile methodologies.">
+                        Análisis de procesos, modelamiento de datos, desarrollo de pipelines, optimización de procesos, elaboración de dashboard, en distintos proyectos bajo metodologías ágiles.
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">Spark SQL</span>
+                    <span class="tech-tag">Scala</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Azure Databricks</span>
+                    <span class="tech-tag">Synapse</span>
+                    <span class="tech-tag">Power BI</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company" data-es="Freelance para AFC (Chile Seguro de Cesantía)" data-en="Freelance for AFC (Chile Unemployment Insurance)">Freelance para AFC (Chile Seguro de Cesantía)</div>
+                        <div class="experience-role" data-es="Ingeniero de Datos" data-en="Data Engineer">Ingeniero de Datos</div>
+                    </div>
+                    <div class="experience-date" data-es="Abr 2020 - Nov 2021" data-en="Apr 2020 - Nov 2021">Abr 2020 - Nov 2021</div>
+                </div>
+                <div class="experience-description">
+                    <ul>
+                        <li data-es="Responsable de gestionar, optimizar, supervisar y controlar la obtención, el almacenamiento, validación y la utilización de datos, para envío de notificaciones a empleadores y afiliados respecto a la implementación de la ley de pactos de suspensión del vínculo laboral." data-en="Responsible for managing, optimizing, supervising and controlling the acquisition, storage, validation and use of data for sending notifications to employers and affiliates regarding the implementation of the labor link suspension agreements law.">
+                            Responsable de gestionar, optimizar, supervisar y controlar la obtención, el almacenamiento, validación y la utilización de datos, para envío de notificaciones a empleadores y afiliados respecto a la implementación de la ley de pactos de suspensión del vínculo laboral.
+                        </li>
+                        <li data-es="Optimizar y automatizar procesos de gestión en apoyo a tareas complementarias del cliente inter áreas." data-en="Optimize and automate management processes to support complementary inter-area client tasks.">
+                            Optimizar y automatizar procesos de gestión en apoyo a tareas complementarias del cliente inter áreas.
+                        </li>
+                        <li data-es="Estimación de horas y negociación con clientes internos, en el cumplimiento de tareas, plazos y objetivos." data-en="Time estimation and negotiation with internal clients, in the fulfillment of tasks, deadlines and objectives.">
+                            Estimación de horas y negociación con clientes internos, en el cumplimiento de tareas, plazos y objetivos.
+                        </li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-weight: 600;" data-es="Principales logros:" data-en="Key achievements:">Principales logros:</p>
+                    <ul>
+                        <li data-es="Cumplir en plazo y forma el primer envío de notificaciones a empleadores de acuerdo a lo comprometido." data-en="Meet the deadline for the first notification delivery to employers as committed.">
+                            Cumplir en plazo y forma el primer envío de notificaciones a empleadores de acuerdo a lo comprometido.
+                        </li>
+                        <li data-es="Migrar envío masivo de notificaciones desde plataforma Masterbase a proceso autónomo Python, disminuyendo costos y acortando tiempos." data-en="Migrate mass notification sending from Masterbase platform to autonomous Python process, reducing costs and shortening times.">
+                            Migrar envío masivo de notificaciones desde plataforma Masterbase a proceso autónomo Python, disminuyendo costos y acortando tiempos.
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">Pentaho</span>
+                    <span class="tech-tag">Jenkins</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">PHP</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Orbis Data - Sinacofi</div>
+                        <div class="experience-role" data-es="Ingeniero de datos" data-en="Data Engineer">Ingeniero de datos</div>
+                    </div>
+                    <div class="experience-date" data-es="Feb 2022 - Jul 2022" data-en="Feb 2022 - Jul 2022">Feb 2022 - Jul 2022</div>
+                </div>
+                <div class="experience-description">
+                    <p data-es="Análisis de procesos, estimación de esfuerzo, desarrollo de soluciones, documentación, migración de datos." data-en="Process analysis, effort estimation, solution development, documentation, data migration.">
+                        Análisis de procesos, estimación de esfuerzo, desarrollo de soluciones, documentación, migración de datos.
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">Power Center</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Linux</span>
+                    <span class="tech-tag">Shell Script</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Orbis Data - LATAM Airlines</div>
+                        <div class="experience-role" data-es="Consultor Senior" data-en="Senior Consultant">Consultor Senior</div>
+                    </div>
+                    <div class="experience-date" data-es="Dic 2017 - Feb 2022" data-en="Dec 2017 - Feb 2022">Dic 2017 - Feb 2022</div>
+                </div>
+                <div class="experience-description">
+                    <ul>
+                        <li data-es="Responsable de la migración de procesos a plataforma cloud GCP." data-en="Responsible for migrating processes to GCP cloud platform.">
+                            Responsable de la migración de procesos a plataforma cloud GCP.
+                        </li>
+                        <li data-es="Obtención y análisis de contactables para comunicaciones de áreas marketing y fidelización de clientes." data-en="Obtaining and analyzing contacts for marketing and customer loyalty communications.">
+                            Obtención y análisis de contactables para comunicaciones de áreas marketing y fidelización de clientes.
+                        </li>
+                        <li data-es="Gestión, manejo y control de la distribución del espacio en distintos servidores, automatizando alertas." data-en="Management and control of space distribution across different servers, automating alerts.">
+                            Gestión, manejo y control de la distribución del espacio en distintos servidores, automatizando alertas.
+                        </li>
+                        <li data-es="Capacitación en metodologías ágiles al área de marketing (12 personas, entre ellas subgerente del área y 3 jefes de proyecto)." data-en="Agile methodologies training for marketing team (12 people, including area deputy manager and 3 project managers).">
+                            Capacitación en metodologías ágiles al área de marketing (12 personas, entre ellas subgerente del área y 3 jefes de proyecto).
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">GCP</span>
+                    <span class="tech-tag">BigQuery</span>
+                    <span class="tech-tag">Airflow</span>
+                    <span class="tech-tag">Teradata</span>
+                    <span class="tech-tag">Salesforce</span>
+                    <span class="tech-tag">Jenkins</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Orbis Data - SAT Falabella</div>
+                        <div class="experience-role" data-es="Proyecto (Colombia y Argentina)" data-en="Project (Colombia and Argentina)">Proyecto (Colombia y Argentina)</div>
+                    </div>
+                    <div class="experience-date" data-es="Jun 2016 - Dic 2017" data-en="Jun 2016 - Dec 2017">Jun 2016 - Dic 2017</div>
+                </div>
+                <div class="experience-description">
+                    <ul>
+                        <li data-es="Análisis, diseño y Modelamiento de datos, Integración entre core bancarios, creando ODS como solución." data-en="Analysis, design and data modeling, integration between banking cores, creating ODS as a solution.">
+                            Análisis, diseño y Modelamiento de datos, Integración entre core bancarios, creando ODS como solución.
+                        </li>
+                        <li data-es="Gestión de Coaching de equipos de alto desempeño (4 personas)." data-en="Coaching management of high-performance teams (4 people).">
+                            Gestión de Coaching de equipos de alto desempeño (4 personas).
+                        </li>
+                        <li data-es="Gestión directa del ciclo de vida del Proyecto con el cliente interno, garantizando su implementación y puesta en marcha con pruebas pre productivas." data-en="Direct management of Project lifecycle with internal client, ensuring its implementation and launch with pre-production testing.">
+                            Gestión directa del ciclo de vida del Proyecto con el cliente interno, garantizando su implementación y puesta en marcha con pruebas pre productivas.
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">Power Center</span>
+                    <span class="tech-tag">Oracle</span>
+                    <span class="tech-tag">SQL Server</span>
+                    <span class="tech-tag">Control-M</span>
+                    <span class="tech-tag">Linux</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Kibernum</div>
+                        <div class="experience-role" data-es="Analista de procesos" data-en="Process Analyst">Analista de procesos</div>
+                    </div>
+                    <div class="experience-date" data-es="Ago 2015 - Mar 2016" data-en="Aug 2015 - Mar 2016">Ago 2015 - Mar 2016</div>
+                </div>
+                <div class="experience-description">
+                    <p data-es="Gestión de mallas productivas, métricas e informes productivos, análisis y optimización de procesos. Modelamiento de control de gestión y mejoras continuas, análisis de proyectos, documentación." data-en="Management of production workflows, metrics and production reports, process analysis and optimization. Management control modeling and continuous improvement, project analysis, documentation.">
+                        Gestión de mallas productivas, métricas e informes productivos, análisis y optimización de procesos. Modelamiento de control de gestión y mejoras continuas, análisis de proyectos, documentación.
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">Power Center</span>
+                    <span class="tech-tag">Control-M</span>
+                    <span class="tech-tag">Linux</span>
+                    <span class="tech-tag">Shell Script</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Hewlett Packard (HP)</div>
+                        <div class="experience-role" data-es="ITO Service Delivery Rep II" data-en="ITO Service Delivery Rep II">ITO Service Delivery Rep II</div>
+                    </div>
+                    <div class="experience-date" data-es="Dic 2010 - Ene 2015" data-en="Dec 2010 - Jan 2015">Dic 2010 - Ene 2015</div>
+                </div>
+                <div class="experience-description">
+                    <ul>
+                        <li data-es="Procesamiento de datos en plataformas productivas, monitoreo y control de mallas de proceso." data-en="Data processing on production platforms, monitoring and control of process workflows.">
+                            Procesamiento de datos en plataformas productivas, monitoreo y control de mallas de proceso.
+                        </li>
+                        <li data-es="Desarrollo solución para la generación de cuadratura, procesos diarios y acumulados." data-en="Development of solution for reconciliation generation, daily and cumulative processes.">
+                            Desarrollo solución para la generación de cuadratura, procesos diarios y acumulados.
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">VAX VMS</span>
+                    <span class="tech-tag">Unix</span>
+                    <span class="tech-tag">Linux</span>
+                    <span class="tech-tag">Oracle</span>
+                    <span class="tech-tag">SQL Server</span>
+                    <span class="tech-tag">SSIS</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Banco BCI</div>
+                        <div class="experience-role" data-es="Administrador de sistemas" data-en="Systems Administrator">Administrador de sistemas</div>
+                    </div>
+                    <div class="experience-date" data-es="Ago 2008 - Sep 2010" data-en="Aug 2008 - Sep 2010">Ago 2008 - Sep 2010</div>
+                </div>
+                <div class="experience-description">
+                    <p data-es="Administrador soporte 2do nivel de procesos plataformas productivas, análisis de mallas sistemas informáticos, retoma de pautas productivas a nivel de scripts." data-en="2nd level support administrator for production platform processes, analysis of IT systems workflows, resumption of production guidelines at script level.">
+                        Administrador soporte 2do nivel de procesos plataformas productivas, análisis de mallas sistemas informáticos, retoma de pautas productivas a nivel de scripts.
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">VAX VMS</span>
+                    <span class="tech-tag">Unix</span>
+                    <span class="tech-tag">Tandem</span>
+                    <span class="tech-tag">IBM</span>
+                    <span class="tech-tag">Control-M</span>
+                </div>
+            </div>
+
+            <div class="experience-card reveal">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-company">Transbank</div>
+                        <div class="experience-role" data-es="Explotador de sistemas" data-en="Systems Operator">Explotador de sistemas</div>
+                    </div>
+                    <div class="experience-date" data-es="Nov 2006 - Ago 2008" data-en="Nov 2006 - Aug 2008">Nov 2006 - Ago 2008</div>
+                </div>
+                <div class="experience-description">
+                    <p data-es="Procesamiento de datos, análisis de mallas sistemas informáticos, Monitoreo Transaccional herramienta prognosis y a nivel de consultas base de datos Oracle 9i, administración medios magnéticos." data-en="Data processing, IT systems workflow analysis, transactional monitoring with prognosis tool and Oracle 9i database queries, magnetic media management.">
+                        Procesamiento de datos, análisis de mallas sistemas informáticos, Monitoreo Transaccional herramienta prognosis y a nivel de consultas base de datos Oracle 9i, administración medios magnéticos.
+                    </p>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">VAX VMS</span>
+                    <span class="tech-tag">Unix</span>
+                    <span class="tech-tag">Oracle</span>
+                    <span class="tech-tag">SQL Server</span>
+                    <span class="tech-tag">Linux</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="section-header reveal">
+            <!-- <span class="section-tag" data-es="🚀 TECNOLOGÍAS & HERRAMIENTAS" data-en="🚀 TECHNOLOGIES & TOOLS">🚀 TECNOLOGÍAS & HERRAMIENTAS</span> -->
+            <h2 class="section-title" data-es="Habilidades Técnicas" data-en="Technical Skills">Habilidades Técnicas</h2>
+            <p class="section-subtitle" data-es="Stack tecnológico moderno y en constante evolución" data-en="Modern and constantly evolving technology stack">Stack tecnológico moderno y en constante evolución</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card reveal">
+                <img src="/CSV/images/pgmc-removebg-preview.png" alt="Programacion" class="edu-logo">
+                <h3 data-es="Lenguajes de Programación" data-en="Programming Languages">Lenguajes de Programación</h3>
+                <div class="skill-item"><strong data-es="Intermedio:" data-en="Intermediate:">Intermedio:</strong> Python, PySpark, Shell Script, JavaScript</div>
+                <div class="skill-item"><strong data-es="Básico:" data-en="Basic:">Básico:</strong> PHP, HTML</div>
+            </div>
+
+            <div class="skill-card reveal">
+                <img src="/CSV/images/ai-removebg-preview.png" alt="AI" class="edu-logo">
+                <h3 data-es="Frameworks / Librerías IA y Datos" data-en="AI & Data Frameworks / Libraries">Frameworks / Librerías IA y Datos</h3>
+                <div class="skill-item">LangChain, LangGraph, LangSmith</div>
+                <div class="skill-item">OpenAI API</div>
+                <div class="skill-item">Pandas, NumPy, Scikit-learn</div>
+            </div>
+
+            <div class="skill-card reveal">
+                <img src="/CSV/images/etl-removebg-preview.png" alt="Logo Pontificia Universidad Católica de Chile" class="edu-logo">
+                <h3 data-es="Herramientas ETL / Orquestación" data-en="ETL / Orchestration Tools">Herramientas ETL / Orquestación</h3>
+                <div class="skill-item"><strong data-es="Avanzado:" data-en="Advanced:">Avanzado:</strong> Pentaho Data Integration, Informatica PowerCenter</div>
+                <div class="skill-item"><strong data-es="Intermedio:" data-en="Intermediate:">Intermedio:</strong> Airflow, Jenkins, Control-M, SSIS, StreamSets</div>
+            </div>
+
+            <div class="skill-card reveal">
+                <img src="/CSV/images/cbd-removebg-preview.png" alt="Cloud" class="edu-logo">
+                <h3 data-es="Cloud & Big Data" data-en="Cloud & Big Data">Cloud & Big Data</h3>
+                <div class="skill-item"><strong>Google Cloud Platform (GCP):</strong> BigQuery, Composer, Storage, Data Lake</div>
+                <div class="skill-item"><strong>Microsoft Azure:</strong> Databricks, Synapse, DevOps, Data Lake, Storage, App Service, Cosmos, OpenAI Service</div>
+                <div class="skill-item">Git, GitLab, GitHub, Azure DevOps</div>
+            </div>
+
+            <div class="skill-card reveal">
+                <img src="/CSV/images/bd-removebg-preview.png" alt="DB" class="edu-logo">
+                <h3 data-es="Bases de Datos" data-en="Databases">Bases de Datos</h3>
+                <div class="skill-item"><strong data-es="Avanzado:" data-en="Advanced:">Avanzado:</strong> SQL Server, Teradata</div>
+                <div class="skill-item"><strong data-es="Intermedio:" data-en="Intermediate:">Intermedio:</strong> Oracle, PostgreSQL, MySQL, Snowflake</div>
+            </div>
+
+            <div class="skill-card reveal">
+                <img src="/CSV/images/bi-removebg-preview.png" alt="Visualizacion" class="edu-logo">
+                <h3 data-es="Visualización y BI" data-en="Visualization & BI">Visualización y BI</h3>
+                <div class="skill-item">Power BI</div>
+                <div class="skill-item">Tableau</div>
+                <!-- <div class="skill-item">Grafana</div> -->
+            </div>
+
+            <div class="skill-card reveal">
+                <img src="/CSV/images/dpc-removebg-preview.png" alt="Procesamineto" class="edu-logo">
+                <h3 data-es="Procesamiento de Datos" data-en="Data Processing">Procesamiento de Datos</h3>
+                <div class="skill-item">Spark SQL</div>
+                <div class="skill-item">Scala</div>
+                <div class="skill-item">Redshift</div>
+                <div class="skill-item">MDM Hub</div>
+            </div>
+
+            <div class="skill-card reveal">
+                <img src="/CSV/images/mag-removebg-preview.png" alt="Metodologia" class="edu-logo">
+                <h3 data-es="Metodologías y Marcos de Trabajo" data-en="Methodologies & Frameworks">Metodologías y Marcos de Trabajo</h3>
+                <div class="skill-item">Scrum, Kanban, Lean</div>
+                <div class="skill-item">ITIL, Six Sigma</div>
+            </div>
+
+            <div class="skill-card reveal">
+                <img src="/CSV/images/idioma-removebg-preview.png" alt="Idioma" class="edu-logo">
+                <h3 data-es="Idiomas" data-en="Languages">Idiomas</h3>
+                <div class="skill-item"><strong data-es="Nativo:" data-en="Native:">Nativo:</strong> <span data-es="Español" data-en="Spanish">Español</span></div>
+                <div class="skill-item"><strong data-es="Conversacional:" data-en="Conversational:">Conversacional:</strong> <span data-es="Inglés" data-en="English">Inglés</span></div>
+            </div>
+        </div>
+    </section>
+
+<!-- Projects Section - GenAI Showcase -->
+<section id="projects" style="background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);">
+    <div class="section-header reveal">
+        
+        <h2 class="section-title" data-es="Desarrollos Propios" data-en="Own Developments">Desarrollos Propios</h2>
+        <p class="section-subtitle" data-es="Innovación aplicada: Soluciones GenAI desarrolladas desde cero" data-en="Applied innovation: GenAI solutions developed from scratch">Innovación aplicada: Soluciones GenAI desarrolladas desde cero</p>
+    </div>
+
+    <!-- Featured Project Card -->
+    <div class="project-showcase reveal" style="max-width: 1400px; margin: 0 auto;">
+        <div class="project-hero">
+            <div class="project-info">
+                <div class="project-badge" data-es="Inteligencia Artificial Generativa" data-en="Generative Artificial Intelligence">Inteligencia Artificial Generativa</div>
+                <h3 class="project-title" data-es="Sistema de Seguimiento de Proyectos en base a Gestión de Minutas" data-en="Project Tracking System based on Minutes Management">Sistema de Seguimiento de Proyectos en base a Gestión de Minutas</h3>
+                <p class="project-description" data-es="Solución generativa que potencia la gestión de proyectos mediante el uso de inteligencia artificial generativa, automatizando la creación de minutas estructuradas, resúmenes ejecutivos y seguimientos de tareas a partir de grabaciones de reuniones. Integra procesamiento de lenguaje natural y técnicas avanzadas de prompt engineering para transformar conversaciones en conocimiento accionable y documentación profesional." data-en="A generative solution that enhances project management through the use of generative artificial intelligence, automating the creation of structured minutes, executive summaries, and task follow-ups from meeting recordings. It integrates natural language processing and advanced prompt engineering techniques to transform conversations into actionable knowledge and professional documentation.">
+                    Solución generativa que potencia la gestión de proyectos mediante el uso de inteligencia artificial generativa, automatizando la creación de minutas estructuradas, resúmenes ejecutivos y seguimientos de tareas a partir de grabaciones de reuniones. Integra procesamiento de lenguaje natural y técnicas avanzadas de prompt engineering para transformar conversaciones en conocimiento accionable y documentación profesional.
+                </p>
+
+                <div class="project-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label" data-es="Reducción de tiempo" data-en="Time reduction">Reducción de tiempo</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label" data-es="Agentes" data-en="Agents">Agentes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label" data-es="Modelos IA" data-en="AI Models">Modelos IA</div>
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://minutagenerador-web.fly.dev/home" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        <span data-es="Ver Demo en Vivo" data-en="View Live Demo">Ver Demo en Vivo</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-visual">
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="browser-url">minutagenerador-web.fly.dev</div>
+                    </div>
+                    <div class="browser-content">
+                        <!-- Carrusel Container -->
+                        <div class="carousel-container">
+                            <div class="carousel-slides">
+                                <div class="carousel-slide active">
+                                    <img src="/CSV/images/minutas_proyeto_1.png" alt="Minuta Generador - Vista Principal">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="/CSV/images/minutas_proyeto_2.png" alt="Minuta Generador - Funcionalidad">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="/CSV/images/minutas_proyeto_3.png" alt="Minuta Generador - Dashboard">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="/CSV/images/minutas_proyeto_4.png" alt="Minuta Generador - Resultados">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controles FUERA del browser-mockup -->
+                <div class="carousel-controls">
+                    <button class="carousel-btn carousel-prev" aria-label="Anterior">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Indicadores -->
+                    <div class="carousel-indicators">
+                        <button class="carousel-indicator active" data-slide="0"></button>
+                        <button class="carousel-indicator" data-slide="1"></button>
+                        <button class="carousel-indicator" data-slide="2"></button>
+                        <button class="carousel-indicator" data-slide="3"></button>
+                    </div>
+                    
+                    <button class="carousel-btn carousel-next" aria-label="Siguiente">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>          
+
+        <!-- Advanced Knowledge Section -->
+        <div class="advanced-knowledge reveal">           
+            <div class="knowledge-cards-advanced">
+                <!-- Multi-Agent Architecture -->
+                <div class="advanced-card reveal">
+                    <!-- <div class="advanced-icon">🧠</div> -->
+                    <h5 data-es="Arquitectura Multi-Agente con LangGraph" data-en="Multi-Agent Architecture with LangGraph">Arquitectura Multi-Agente con LangGraph</h5>
+                    <p data-es="Implementación de sistemas complejos con múltiples agentes especializados que colaboran para resolver tareas. Cada agente tiene roles específicos: coordinador, extractor, clasificador, validador y generador." data-en="Implementation of complex systems with multiple specialized agents that collaborate to solve tasks. Each agent has specific roles: coordinator, extractor, classifier, validator and generator.">
+                        Implementación de sistemas complejos con múltiples agentes especializados que colaboran para resolver tareas. Cada agente tiene roles específicos: coordinador, extractor, clasificador, validador y generador.
+                    </p>
+                    <div class="sub-skills">
+                        <span>State Machines</span>
+                        <span>Agent Orchestration</span>
+                        <span>Tool Calling</span>
+                        <span>Agent Memory</span>
+                    </div>
+                </div>
+
+                <!-- Advanced Prompt Engineering -->
+                <div class="advanced-card reveal">
+                    <!-- <div class="advanced-icon">✍️</div> -->
+                    <h5 data-es="Prompt Engineering de Producción" data-en="Production Prompt Engineering">Prompt Engineering de Producción</h5>
+                    <p data-es="Diseño de prompts robustos y escalables con técnicas avanzadas: Chain-of-Thought para razonamiento paso a paso, Few-Shot Learning con ejemplos contextuales, Structured Output con Pydantic para respuestas consistentes, y Self-Consistency para validación de resultados." data-en="Design of robust and scalable prompts with advanced techniques: Chain-of-Thought for step-by-step reasoning, Few-Shot Learning with contextual examples, Structured Output with Pydantic for consistent responses, and Self-Consistency for result validation.">
+                        Diseño de prompts robustos y escalables con técnicas avanzadas: Chain-of-Thought para razonamiento paso a paso, Few-Shot Learning con ejemplos contextuales, Structured Output con Pydantic para respuestas consistentes, y Self-Consistency para validación de resultados.
+                    </p>
+                    <div class="sub-skills">
+                        <span>Chain-of-Thought</span>
+                        <span>Few-Shot Learning</span>
+                        <span>Output Parsing</span>
+                        <span>Validation Logic</span>
+                    </div>
+                </div>
+                <!-- RAG System -->
+                <div class="advanced-card reveal">
+                    <!-- <div class="advanced-icon">🔍</div> -->
+                    <h5 data-es="RAG (Retrieval-Augmented Generation)" data-en="RAG (Retrieval-Augmented Generation)">RAG (Retrieval-Augmented Generation)</h5>
+                    <p data-es="Sistema completo de búsqueda y generación aumentada por recuperación. Implementación de vector stores, embeddings semánticos, chunking estratégico, reranking de resultados, y generación contextual con citas verificables." data-en="Complete retrieval-augmented generation and search system. Implementation of vector stores, semantic embeddings, strategic chunking, result reranking, and contextual generation with verifiable citations.">
+                        Sistema completo de búsqueda y generación aumentada por recuperación. Implementación de vector stores, embeddings semánticos, chunking estratégico, reranking de resultados, y generación contextual con citas verificables.
+                    </p>
+                    <div class="sub-skills">
+                        <span>Vector Databases</span>
+                        <span>Semantic Search</span>
+                        <span>Chunking Strategies</span>
+                        <span>Citation Tracking</span>
+                    </div>
+                </div>
+
+                <!-- NLP & Speech Processing -->
+                <div class="advanced-card reveal">
+                    <!-- <div class="advanced-icon">🎤</div> -->
+                    <h5 data-es="Procesamiento de Voz y Lenguaje Natural" data-en="Speech and Natural Language Processing">Procesamiento de Voz y Lenguaje Natural</h5>
+                    <p data-es="Integración de modelos Speech-to-Text de última generación (Whisper), diarización de hablantes, análisis semántico, extracción de entidades nombradas, clasificación de intenciones, y detección de sentimientos en contextos conversacionales." data-en="Integration of state-of-the-art Speech-to-Text models (Whisper), speaker diarization, semantic analysis, named entity extraction, intent classification, and sentiment detection in conversational contexts.">
+                        Integración de modelos Speech-to-Text de última generación (Whisper), diarización de hablantes, análisis semántico, extracción de entidades nombradas, clasificación de intenciones, y detección de sentimientos en contextos conversacionales.
+                    </p>
+                    <div class="sub-skills">
+                        <span>Whisper AI</span>
+                        <span>Speaker Diarization</span>
+                        <span>NER</span>
+                        <span>Sentiment Analysis</span>
+                    </div>
+                </div>
+                <!-- Full-Stack Architecture -->
+                <div class="advanced-card reveal">
+                    <!-- <div class="advanced-icon">🏗️</div> -->
+                    <h5 data-es="Arquitectura Full-Stack para IA" data-en="Full-Stack Architecture for AI">Arquitectura Full-Stack para IA</h5>
+                    <p data-es="Diseño e implementación de arquitectura escalable: Backend asíncrono con FastAPI, gestión de estados complejos, websockets para real-time, queue systems para procesamiento pesado, caching inteligente, y frontend reactivo optimizado para UX con IA." data-en="Design and implementation of scalable architecture: Asynchronous backend with FastAPI, complex state management, websockets for real-time, queue systems for heavy processing, intelligent caching, and reactive frontend optimized for AI UX.">
+                        Diseño e implementación de arquitectura escalable: Backend asíncrono con FastAPI, gestión de estados complejos, websockets para real-time, queue systems para procesamiento pesado, caching inteligente, y frontend reactivo optimizado para UX con IA.
+                    </p>
+                    <div class="sub-skills">
+                        <span>FastAPI</span>
+                        <span>React</span>
+                        <span>PostgreSQL</span>
+                        <span>Redis</span>
+                        <span>Docker</span>
+                    </div>
+                </div>
+
+                <!-- LLM Integration & Optimization -->
+                <div class="advanced-card reveal">
+                    <!-- <div class="advanced-icon">⚡</div> -->
+                    <h5 data-es="Integración y Optimización de LLMs" data-en="LLM Integration and Optimization">Integración y Optimización de LLMs</h5>
+                    <p data-es="Gestión avanzada de múltiples modelos de lenguaje: estrategias de fallback, token optimization, cost management, streaming responses, concurrent requests, rate limiting, error handling y monitoring de performance en producción." data-en="Advanced management of multiple language models: fallback strategies, token optimization, cost management, streaming responses, concurrent requests, rate limiting, error handling and production performance monitoring.">
+                        Gestión avanzada de múltiples modelos de lenguaje: estrategias de fallback, token optimization, cost management, streaming responses, concurrent requests, rate limiting, error handling y monitoring de performance en producción.
+                    </p>
+                    <div class="sub-skills">
+                        <span>API Integration</span>
+                        <span>Token Management</span>
+                        <span>Cost Optimization</span>
+                        <span>Performance Monitoring</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <div class="section-header reveal">
+            <!-- <span class="section-tag" data-es="🏆 LOGROS & RECONOCIMIENTOS" data-en="🏆 ACHIEVEMENTS & RECOGNITION">🏆 LOGROS & RECONOCIMIENTOS</span> -->
+            <h2 class="section-title" data-es="Certificaciones" data-en="Certifications">Certificaciones</h2>
+            <p class="section-subtitle" data-es="Formación continua en las últimas tecnologías" data-en="Continuous training in the latest technologies">Formación continua en las últimas tecnologías</p>
+        </div>
+        <div class="certs-grid">
+            <div class="cert-card reveal">
+                <img src="/CSV/images/teradata.png" alt="Teradata Logo" class="cert-logo">
+                <div class="cert-title">Teradata - Intro to Vantage 2.3</div>
+                <div class="cert-org">Teradata · 2024</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/databricks_gaf-removebg-preview.png" alt="Generative AI Fundamentals Logo" class="cert-logo">
+                <div class="cert-title">Generative AI Fundamentals</div>
+                <div class="cert-org">Databricks · 2024</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/databricks_pa.png" alt="Databricks Platform Architect Logo" class="cert-logo">
+                <div class="cert-title">Azure Databricks Platform Architect</div>
+                <div class="cert-org">Databricks · 2023</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/databricks_pad.png" alt="Databricks platform administrator Logo" class="cert-logo">
+                <div class="cert-title">Platform Administrator</div>
+                <div class="cert-org">Databricks · 2023</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/azure_dp900.png" alt="Azure DP-900 Logo" class="cert-logo">
+                <div class="cert-title">Azure DP-900</div>
+                <div class="cert-org">Microsoft · 2023</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/databricks_ft.png" alt="databricks Fundamentals Logo" class="cert-logo">
+                <div class="cert-title">Databricks Lakehouse Fundamentals</div>
+                <div class="cert-org">Databricks · 2023</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/smp-removebg-preview.png" alt="Scrum Master Professional Logo" class="cert-logo">
+                <div class="cert-title">Scrum Master Professional</div>
+                <div class="cert-org">Certiprof · 2019</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/pop-removebg-preview.png" alt="Product Owner Logo" class="cert-logo">
+                <div class="cert-title">Product Owner Professional</div>
+                <div class="cert-org">Certiprof · 2019</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/kep-removebg-preview.png" alt="Kanban Logo" class="cert-logo">
+                <div class="cert-title">Kanban Essentials Professional</div>
+                <div class="cert-org">Certiprof · 2019</div>
+            </div>
+            <div class="cert-card reveal">
+                <img src="/CSV/images/sigma_green-removebg-preview.png" alt="SIX Sigma Green Belt Professional Logo" class="cert-logo">
+                <div class="cert-title">Lean Six Sigma Green Belt Professional</div>
+                <div class="cert-org">Certiprof · 2019</div>
+            </div>
+        </div>
+    </section>
+
+<!-- Education Section -->
+<section>
+    <div class="section-header reveal">
+      <h2 class="section-title" data-es="Educación" data-en="Education">FORMACIÓN ACADÉMICA</h2>
+    </div>
+  
+    <div class="experience-grid" style="max-width: 900px; margin: 0 auto;">
+      
+      <!-- Universidad Católica -->
+      <div class="experience-card reveal">
+        <div class="experience-header" style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <img src="/CSV/images/pucc.png" alt="Logo Pontificia Universidad Católica de Chile" class="edu-logo">
+            <div>
+              <div class="experience-company">Pontificia Universidad Católica de Chile</div>
+              <div class="experience-role" data-es="Diplomado en Dirección y Administración de Proyectos" data-en="Diploma in Project Management and Administration">
+                Diplomado en Dirección y Administración de Proyectos
+              </div>
+            </div>
+          </div>
+          <div class="experience-date">2018</div>
+        </div>
+        <div class="experience-description">
+          <p data-es="Formación especializada en gestión de proyectos, liderazgo de equipos y metodologías de planificación estratégica."
+             data-en="Specialized training in project management, team leadership and strategic planning methodologies.">
+            Formación especializada en gestión de proyectos, liderazgo de equipos y metodologías de planificación estratégica.
+          </p>
+        </div>
+      </div>
+  
+      <!-- Universidad Tecnológica -->
+      <div class="experience-card reveal">
+        <div class="experience-header" style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <img src="/CSV/images/inacap.png" alt="Logo Universidad Tecnológica de Chile" class="edu-logo">
+            <div>
+              <div class="experience-company">Universidad Tecnológica de Chile</div>
+              <div class="experience-role" data-es="Ingeniería en Informática" data-en="Computer Engineering">
+                Ingeniería en Informática
+              </div>
+            </div>
+          </div>
+          <div class="experience-date">2013</div>
+        </div>
+        <div class="experience-description">
+          <p data-es="Título profesional con especialización en desarrollo de software, arquitectura de sistemas y bases de datos."
+             data-en="Professional degree with specialization in software development, systems architecture and databases.">
+            Título profesional con especialización en desarrollo de software, arquitectura de sistemas y bases de datos.
+          </p>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+  
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header reveal">
+            <!-- <span class="section-tag" data-es="📬 CONECTEMOS" data-en="📬 LET'S CONNECT">📬 CONECTEMOS</span> -->
+            <h2 class="section-title" data-es="Contacto" data-en="Contact">Contacto</h2>
+            <!-- <p class="section-subtitle" data-es="¿Tienes un proyecto en mente? Hablemos sobre cómo puedo ayudarte" data-en="Have a project in mind? Let's talk about how I can help you">¿Tienes un proyecto en mente? Hablemos sobre cómo puedo ayudarte</p> -->
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card reveal">
+                <a href="mailto:felipe.cespedes.perez@gmail.com" target="_blank" rel="noopener noreferrer" class="contact-logo">
+                    <img src="/CSV/images/mail.png" alt="Mail" class="edu-logo">
+                  </a>
+            </div>
+            <div class="contact-card reveal">
+                <a href="https://wa.me/56994527121" target="_blank" rel="noopener noreferrer" class="contact-logo">
+                    <img src="/CSV/images/wasap-removebg-preview.png" alt="WhatsApp" class="edu-logo">
+                  </a>
+              </div>
+            <div class="contact-card reveal">
+                <a href="https://www.linkedin.com/in/felipecp-agile-bi-etl/" target="_blank" rel="noopener noreferrer" class="contact-logo">
+                    <img src="/CSV/images/linkedin.png" alt="LinkedIn" class="edu-logo">
+                  </a>
+            </div>
+        </div>
+    
+        <!-- Download CV Section -->
+        <div class="download-section reveal">
+            <img src="/CSV/images/descarga.png" alt="linkedin" class="edu-logo">
+            <h3 data-es="📥 Descargar Curriculum Vitae" data-en="📥 Download Resume"> Descargar Curriculum Vitae</h3>
+            <p data-es="Descarga mi CV en formato PDF en el idioma de tu preferencia" data-en="Download my resume in PDF format in your preferred language">Descarga mi CV en formato PDF en el idioma de tu preferencia</p>
+            <div class="download-buttons">
+                <a href="#" class="download-btn" onclick="downloadCV('es'); return false;" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span data-es="CV en Español" data-en="Resume in Spanish">CV en Español</span>
+                </a>
+                <a href="#" class="download-btn" onclick="downloadCV('en'); return false;" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span data-es="CV en Inglés" data-en="Resume in English">CV en Inglés</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h2>Felipe A. Céspedes Pérez</h2>
+            <p>Data Engineer · Prompt Engineering · GenAI Specialist</p>
+            <p style="margin-top: 2rem; opacity: 0.6;" data-es="© 2025 · Diseñado con innovación y creatividad" data-en="© 2025 · Designed with innovation and creativity">© 2025 · Diseñado con innovación y creatividad</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language switcher
+        let currentLang = 'es';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-es][data-en]').forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (element.tagName === 'A' || element.tagName === 'BUTTON') {
+                        element.textContent = text;
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            });
+        }
+
+// Carousel Functionality
+class Carousel {
+    constructor(visualContainer) {
+        this.visualContainer = visualContainer;
+        this.container = visualContainer.querySelector('.carousel-container');
+        this.slides = this.container.querySelectorAll('.carousel-slide');
+        this.indicators = visualContainer.querySelectorAll('.carousel-indicator');
+        this.prevBtn = visualContainer.querySelector('.carousel-prev');
+        this.nextBtn = visualContainer.querySelector('.carousel-next');
+        this.currentIndex = 0;
+        this.autoplayInterval = null;
+        
+        this.init();
+    }
+    
+    init() {
+        // Event listeners para botones
+        this.prevBtn.addEventListener('click', () => this.prev());
+        this.nextBtn.addEventListener('click', () => this.next());
+        
+        // Event listeners para indicadores
+        this.indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => this.goToSlide(index));
+        });
+        
+        // Soporte para teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') this.prev();
+            if (e.key === 'ArrowRight') this.next();
+        });
+        
+        // Touch/Swipe support
+        this.addSwipeSupport();
+        
+        // Autoplay
+        this.startAutoplay();
+        
+        // Pausar autoplay al hover
+        this.visualContainer.addEventListener('mouseenter', () => this.stopAutoplay());
+        this.visualContainer.addEventListener('mouseleave', () => this.startAutoplay());
+    }
+    
+    goToSlide(index) {
+        this.slides[this.currentIndex].classList.remove('active');
+        this.indicators[this.currentIndex].classList.remove('active');
+        
+        this.currentIndex = index;
+        
+        this.slides[this.currentIndex].classList.add('active');
+        this.indicators[this.currentIndex].classList.add('active');
+        
+        // Actualizar transform
+        const slidesContainer = this.container.querySelector('.carousel-slides');
+        slidesContainer.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+    }
+    
+    next() {
+        const nextIndex = (this.currentIndex + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
+    }
+    
+    prev() {
+        const prevIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
+        this.goToSlide(prevIndex);
+    }
+    
+    startAutoplay() {
+        this.autoplayInterval = setInterval(() => this.next(), 5000);
+    }
+    
+    stopAutoplay() {
+        if (this.autoplayInterval) {
+            clearInterval(this.autoplayInterval);
+            this.autoplayInterval = null;
+        }
+    }
+    
+    addSwipeSupport() {
+        let startX = 0;
+        let endX = 0;
+        
+        this.container.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+        
+        this.container.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    this.next();
+                } else {
+                    this.prev();
+                }
+            }
+        });
+    }
+}
+
+// Inicializar el carrusel cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    const projectVisual = document.querySelector('.project-visual');
+    if (projectVisual) {
+        new Carousel(projectVisual);
+    }
+});
+
+// Inicializar el carrusel cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselContainer) {
+        new Carousel(carouselContainer);
+    }
+});
+
+        // Download CV function
+        function downloadCV(language) {
+    // Create a temporary notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    if (language === 'es') {
+        notification.textContent = '📥 Descargando CV en Español...';
+    } else {
+        notification.textContent = '📥 Downloading Resume in English...';
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Simulate download
+    setTimeout(() => {
+        notification.textContent = language === 'es' ? '✅ CV descargado exitosamente' : '✅ Resume downloaded successfully';
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+    }, 1000);
+
+    // Add slide animations
+    if (!document.getElementById('notif-style')) {
+        const style = document.createElement('style');
+        style.id = 'notif-style';
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+            // In production, you would actually trigger a download like this:
+            const link = document.createElement('a');
+            link.href = language === 'es' ? '/CSV/download/Felipe_Cespedes_Perez_ES.pdf' : '/CSV/download/Felipe_Cespedes_Perez_EN.pdf';
+            link.download = language === 'es' ? 'CV_Felipe_Cespedes_ES.pdf' : 'CV_Felipe_Cespedes_EN.pdf';
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Navigation visibility on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('visible');
+            } else {
+                nav.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero
+       //window.addEventListener('scroll', () => {
+       //    const scrolled = window.pageYOffset;
+       //    const hero = document.querySelector('.hero');
+       //    if (hero && scrolled < window.innerHeight) {
+       //        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+       //    }
+       //});
+
+        // Animated counter for stats
+        function animateCounter(element, target, duration) {
+            let current = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + '+';
+                }
+            }, 16);
+        }
+
+        // Initialize counters when visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const stat = entry.target.querySelector('.stat');
+                    if (stat && !stat.classList.contains('animated')) {
+                        stat.classList.add('animated');
+                        const value = parseInt(stat.textContent);
+                        stat.textContent = '0+';
+                        animateCounter(stat, value, 2000);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.glass-card').forEach(card => {
+            statsObserver.observe(card);
+        });
+
+        // Add dynamic gradient animation to spheres
+        const spheres = document.querySelectorAll('.gradient-sphere');
+        spheres.forEach((sphere, index) => {
+            sphere.style.animationDelay = `${index * 3}s`;
+        });
+
+        // Mobile menu toggle (if needed)
+        const createMobileMenu = () => {
+            if (window.innerWidth <= 768) {
+                const navLinks = document.querySelector('.nav-links');
+                if (navLinks) {
+                    navLinks.style.display = 'none';
+                }
+            }
+        };
+
+        window.addEventListener('resize', createMobileMenu);
+        createMobileMenu();
+
+        // Add cursor trail effect (optional enhancement)
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.cssText = `
+                position: fixed;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(99,102,241,0.5) 0%, transparent 70%);
+                pointer-events: none;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                z-index: 9999;
+                animation: fadeTrail 1s ease-out forwards;
+            `;
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 1000);
+        });
+
+        // Add fade trail animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeTrail {
+                to {
+                    opacity: 0;
+                    transform: scale(2);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Console message for recruiters
+        console.log('%c¡Hola Reclutador! 👋', 'color: #6366f1; font-size: 20px; font-weight: bold;');
+        console.log('%cGracias por revisar mi portafolio. Si te gusta lo que ves, ¡hablemos!', 'color: #8b5cf6; font-size: 14px;');
+        console.log('%c📧 felipe.cespedes.perez@gmail.com', 'color: #ec4899; font-size: 14px;');
+    </script>
+</body>
+</html>
