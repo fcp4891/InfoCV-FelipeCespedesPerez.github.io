@@ -59,7 +59,7 @@ nav{
 }
 nav.visible{opacity:1;transform:translateY(0)}
 nav .nav-container{
-  max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center
+  max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:2rem;
 }
 .nav-logo{
   font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;
@@ -76,6 +76,14 @@ nav .nav-container{
   background:linear-gradient(90deg,var(--accent-1),var(--accent-3));transition:width .3s ease
 }
 .nav-links a:hover::after{width:100%}
+
+.nav-links{
+  flex: 1;
+  justify-content: center;
+}
+
+/* Mobile menu toggle - hidden by default */
+.mobile-menu-toggle{display:none}
 
 /* Hero */
 .hero{
@@ -260,13 +268,134 @@ body{padding-top:26px}
   .hero-content{grid-template-columns:1fr}
   .hero-visual{display:block;height:auto}
   .nav-links{gap:1.5rem}
+  .project-hero{grid-template-columns:1fr}
+  .project-stats{grid-template-columns:1fr}
+  .knowledge-grid{grid-template-columns:1fr}
+  .flow-step{grid-template-columns:50px 1fr;gap:1.5rem}
+  .step-arrow{display:none}
+  .knowledge-cards-advanced{grid-template-columns:1fr}
 }
+
 @media (max-width:768px){
   section{padding:5rem 5%}
-  .nav-links{display:none}
+  
+  /* Menú móvil */
+  .nav-container{
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.nav-logo{
+  order: 1;
+}
+.mobile-menu-toggle{
+  order: 2;
+}
+.lang-switcher{
+  order: 3;
+  margin-left: auto;
+}
+
+  .nav-links{
+    display:none;
+    position:fixed;
+    top:80px;
+    left:0;
+    right:0;
+    background:var(--bg-secondary);
+    flex-direction:column;
+    padding:2rem;
+    border-top:1px solid var(--glass-border);
+    border-bottom:1px solid var(--glass-border);
+    z-index:999;
+  }
+  .nav-links.active{display:flex}
+  
+  /* Botón hamburguesa */
+  .mobile-menu-toggle{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    cursor:pointer;
+    padding:8px;
+  }
+  .mobile-menu-toggle span{
+    width:25px;
+    height:3px;
+    background:var(--text-primary);
+    transition:all 0.3s ease;
+    border-radius:2px;
+  }
+  .mobile-menu-toggle.active span:nth-child(1){transform:rotate(45deg) translateY(11px)}
+  .mobile-menu-toggle.active span:nth-child(2){opacity:0}
+  .mobile-menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translateY(-11px)}
+  
   .hero-text h1{font-size:2.5rem}
   .cta-buttons{flex-direction:column}
   .btn{width:100%;text-align:center}
+  
+  /* Hero visual cards */
+  .specialties-group{grid-template-columns:1fr;gap:1rem}
+  .glass-card{padding:1rem}
+  
+  /* Projects responsive */
+  .project-showcase{padding:0 1rem}
+  .project-hero{gap:2rem}
+  .project-stats{grid-template-columns:1fr;padding:1.5rem}
+  .stat-number{font-size:2rem}
+  .project-links{flex-direction:column}
+  .project-links .btn{width:100%}
+  
+  /* Browser mockup */
+  .browser-mockup{margin:0}
+  .browser-url{font-size:0.7rem;padding:0.4rem 0.8rem}
+  
+  /* Carousel controls */
+  .carousel-controls{gap:1rem;margin-top:1rem}
+  .carousel-btn{width:44px;height:44px}
+  .carousel-btn svg{width:20px;height:20px}
+  .carousel-indicator{width:10px;height:10px}
+  .carousel-indicator.active{width:30px}
+  
+  /* Knowledge cards */
+  .advanced-card{padding:1.5rem}
+  .knowledge-cards-advanced{grid-template-columns:1fr}
+  
+  /* Flow steps */
+  .flow-step{grid-template-columns:1fr}
+  .step-number{width:50px;height:50px;font-size:1.5rem;margin:0 auto}
+  .step-content{padding:1.5rem}
+  .step-info h5{font-size:1.4rem}
+  
+  /* Impact */
+  .impact-number{font-size:3rem}
+  .impact-grid{grid-template-columns:1fr}
+  
+  /* Titles */
+  .flow-title,.knowledge-section-title,.stack-section-title,.impact-title{font-size:2rem}
+  
+  /* Experience cards */
+  .experience-header{flex-direction:column;align-items:flex-start}
+  .experience-date{margin-top:0.5rem}
+  
+  /* Skills grid */
+  .skills-grid{grid-template-columns:1fr}
+  
+  /* Contact & Download */
+  .contact-grid{grid-template-columns:1fr}
+  .download-buttons{flex-direction:column}
+  .download-btn{width:100%}
+}
+
+@media (max-width:480px){
+  .hero-text h1{font-size:2rem}
+  .section-title{font-size:2rem}
+  .project-title{font-size:1.8rem}
+  .stat-number{font-size:1.5rem}
+  .impact-number{font-size:2.5rem}
+  .browser-dots span{width:8px;height:8px}
+  .carousel-btn{width:40px;height:40px}
+  .carousel-btn svg{width:18px;height:18px}
 }
 /* === Idioma Switcher (Restaurar efecto) === */
 .lang-switcher {
@@ -274,7 +403,16 @@ body{padding-top:26px}
   gap: 0.6rem;
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+@media (max-width:768px){
+  .lang-switcher{
+    margin-top:0;
+    width:100%;
+    justify-content:center;
+  }
 }
 
 .lang-btn {
@@ -899,22 +1037,6 @@ body{padding-top:26px}
     gap: 0.8rem;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .flow-step {
-        grid-template-columns: 50px 1fr;
-        gap: 1.5rem;
-    }
-    
-    .step-arrow {
-        display: none;
-    }
-    
-    .knowledge-cards-advanced {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (max-width: 768px) {
     .project-logo {
         flex-direction: column;
@@ -1151,6 +1273,11 @@ body{padding-top:26px}
     <nav id="nav">
         <div class="nav-container">
             <div class="nav-logo">FC</div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <div class="nav-links">
                 <a href="#home" data-es="Inicio" data-en="Home">Inicio</a>
                 <a href="#experience" data-es="Experiencia" data-en="Experience">Experiencia</a>
@@ -1677,7 +1804,7 @@ body{padding-top:26px}
     </section>
 
 <!-- Projects Section - GenAI Showcase -->
-<section id="projects" style="background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);">
+<section id="projects">
     <div class="section-header reveal">
         
         <h2 class="section-title" data-es="Desarrollos Propios" data-en="Own Developments">Desarrollos Propios</h2>
@@ -2071,6 +2198,40 @@ body{padding-top:26px}
             });
         }
 
+// Mobile menu toggle
+function toggleMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    navLinks.classList.toggle('active');
+    mobileToggle.classList.toggle('active');
+}
+
+// Cerrar menú al hacer clic en un link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        
+        if (window.innerWidth <= 768) {
+            navLinks.classList.remove('active');
+            mobileToggle.classList.remove('active');
+        }
+    });
+});
+
+// Cerrar menú al hacer clic fuera
+document.addEventListener('click', (e) => {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const nav = document.querySelector('nav');
+    
+    if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+    }
+});
+
 // Carousel Functionality
 class Carousel {
     constructor(visualContainer) {
@@ -2176,14 +2337,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectVisual = document.querySelector('.project-visual');
     if (projectVisual) {
         new Carousel(projectVisual);
-    }
-});
-
-// Inicializar el carrusel cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    const carouselContainer = document.querySelector('.carousel-container');
-    if (carouselContainer) {
-        new Carousel(carouselContainer);
     }
 });
 
@@ -2351,19 +2504,6 @@ document.addEventListener('DOMContentLoaded', () => {
         spheres.forEach((sphere, index) => {
             sphere.style.animationDelay = `${index * 3}s`;
         });
-
-        // Mobile menu toggle (if needed)
-        const createMobileMenu = () => {
-            if (window.innerWidth <= 768) {
-                const navLinks = document.querySelector('.nav-links');
-                if (navLinks) {
-                    navLinks.style.display = 'none';
-                }
-            }
-        };
-
-        window.addEventListener('resize', createMobileMenu);
-        createMobileMenu();
 
         // Add cursor trail effect (optional enhancement)
         document.addEventListener('mousemove', (e) => {
